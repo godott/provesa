@@ -1,6 +1,6 @@
 #define NUMDIM 3
 
-
+void local_flat_all(double w[][], double u[][], double gxyz[][][], int n, double D[][]);
 void axi(double w[][], double u[][], double gxyz[][][], int n, int fel, int lel, int find, int lind){
    
     extern int ldim, nx1, ny1, nz1, nelt, n;

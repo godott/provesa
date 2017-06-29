@@ -14,7 +14,7 @@ $assume(NUMGP == 10);
 $assume(NUMEL == 7040);
 
 //Global variables
-int ldim = NUMDIM, nx1 = NUMGP, ny1 = NUMGP, nz1 = NUMGP, netl = NUMEL, n = nx1 * ny1 * nz1;
+int ldim = NUMDIM, nx1 = NUMGP, ny1 = NUMGP, nz1 = NUMGP, nelt = NUMEL, n = nx1 * ny1 * nz1;
 double dxm1[nx1][nx1], dxtm1[nx1][nx1];  
 
 
@@ -23,7 +23,7 @@ void axi(double w[][], double u[][], double gxyz[][][], int n, int fel, int lel,
 
 void main(){
 
-    double w[nelt][n], u[netl][n];
+    double w[nelt][n], u[nelt][n];
     double gxyz[nelt][n][2*ldim];
 
     int thread, numth, i, j, k;
