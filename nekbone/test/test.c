@@ -21,7 +21,6 @@ $assume(NUMEL == 7040);
 
 //Global variables
 
-extern double dxm1[NUMGP][NUMGP], dxtm1[NUMGP][NUMGP];  
 
 //Function declarations
 void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int find, int lind);
@@ -29,12 +28,13 @@ void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int fi
 void main(){
     int ldim = 3, nx1 = 10, ny1 = 10, nz1 = 10, nelt = 70, n = nx1 * ny1 * nz1;
 
-    double w[nelt][n], u[nelt][n];
-    double gxyz[nelt][n][2*ldim];
-
     int thread, numth, i, j, k;
     int fel, lel, find, lind;
     int omp_get_thread_num, omp_get_num_threads;
+
+    double w[nelt][n], u[nelt][n];
+    double gxyz[nelt][n][2*ldim];
+
 
     printf("nx1 = %d\n", nx1);
     printf("nelt = %d\n", nelt);
