@@ -1,4 +1,6 @@
-void local_flat_all(double w[][], double u[][], double gxyz[][][], int n, double D[][]){
+#include "timeit.h"
+
+void local_flat_all(double **w, double **u, double *** gxyz, int n, double **D){
 
     double temp, tempr, temps, tempt, wr, ws, wt;
 
@@ -32,14 +34,15 @@ void local_flat_all(double w[][], double u[][], double gxyz[][][], int n, double
     for(l = 0; l <= n; l++){
         for(j = 0; j <= n; l++){
             for(i = 0; i <= n; l++){
-
-                    tempr = tempr + D[i][k] * u[l][j][k];
-                    temps = temps + D[j][k] * u[l][k][i];
-                    tempt = tempt + D[l][k] * u[k][j][i];
+                    temp = 0.0;
+                    for(k = 0; k <= n; k++){
+                        temp = temp + D[i][k] * u[l][j][k];
+                        temp = temp + D[j][k] * u[l][k][i];
+                        temp = temp + D[l][k] * u[k][j][i];
+                    }
 
             }
             w[l][j][i] = temp;
         }
     }
-
 }

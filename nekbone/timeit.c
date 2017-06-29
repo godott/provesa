@@ -10,12 +10,12 @@
 
 //Function declarations
 void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int find, int lind);
-void allocate_2d(double **a, int d1, int d2);
-void allocate_3d(double ***a, int d1, int d2, int d3);
+void allocate_2d(double ***ar, int d1, int d2);
+void allocate_3d(double ****ar, int d1, int d2, int d3);
 void free_2d(double **a, int d1, int d2);
 void free_3d(double ***a, int d1, int d2, int d3);
 
-void main(){
+int main(){
     int ldim = NUMDIM, nx1 = NUMGP, ny1 = NUMGP, nz1 = NUMGP, nelt = NUMEL, n = nx1 * ny1 * nz1;
 
     int thread, numth, i, j, k;
@@ -26,9 +26,9 @@ void main(){
     double ***gxyz;
     double dxm1[NUMGP][NUMGP], dxtm1[NUMGP][NUMGP];
 
-    allocate_2d(w, nelt, n);
-    allocate_2d(u, nelt, n);
-    allocate_3d(gxyz, nelt, n, 2*ldim);
+    allocate_2d(&w, nelt, n);
+    allocate_2d(&u, nelt, n);
+    allocate_3d(&gxyz, nelt, n, 2*ldim);
 
     printf("nx1 = %d\n", nx1);
     printf("nelt = %d\n", nelt);
@@ -48,13 +48,8 @@ void main(){
             dxtm1[j][i] = 1.0 + 1.0/(1.0*(i+ 2*j));
         }
     }
-    printf("Data initialized");
+    printf("Data initialized\n");
 
-    free_2d(w, nelt, n);
-    free_2d(u, nelt, n);
-    free_3d(gxyz, nelt, n, 2*ldim);
-//    printf("%p", *w);
-/*
 #pragma omp parallel default(shared) private(thread, numth, find, lind, fel, lel)
 {
     thread = 0;
@@ -90,15 +85,22 @@ void main(){
 
     axi(w, u, gxyz, n, fel, lel, find, lind);
 }
+
+    free_2d(w, nelt, n);
+    free_2d(u, nelt, n);
+    free_3d(gxyz, nelt, n, 2*ldim);
+
     printf("Simulation complete.");
-*/
+
+    return 0;
 }
 
-void allocate_2d(double **a, int d1, int d2){
-    a = (double **) malloc(sizeof(double *) * d1);
+void allocate_2d(double ***ar, int d1, int d2){
+    double ** a = (double **) malloc(sizeof(double *) * d1);
     for(int i = 0; i< d1; i++){
         a[i] = (double *) malloc(sizeof(double) * d2);
     }
+    *ar = a;
 }
 
 void free_2d(double **a, int d1, int d2){
@@ -108,14 +110,15 @@ void free_2d(double **a, int d1, int d2){
     free(a);
 }
 
-void allocate_3d(double ***a, int d1, int d2, int d3){
-    a =(double ***) malloc(sizeof(double **) * d1);
+void allocate_3d(double ****ar, int d1, int d2, int d3){
+    double *** a =(double ***) malloc(sizeof(double **) * d1);
     for(int i = 0; i< d1; i++){
         a[i] = (double **) malloc(sizeof(double *) * d2);
-        for(int j = 0; j< d2; i++){
+        for(int j = 0; j< d2; j++){
             a[i][j] = (double *) malloc(sizeof(double) * d3);
         }
     }
+    *ar = a;
 }
 
 void free_3d(double ***a, int d1, int d2, int d3){
