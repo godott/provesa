@@ -18,11 +18,8 @@ void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int fi
     }
     
     for(e16 = fel; e16 <= lel; e16 += 16){
-        for(j = 1; j <=16; j++){
-            e = e16 + j - 1;
-            if(e < nelt)
-                local_flat_all(w + e, u + e, gxyz + e, nx1 - 1, dxm1);
-        }
+            if(e16 < nelt)
+                local_flat_all(w + e16, u + e16, gxyz + e16, nx1 - 1, dxm1);
     }
     return;
 }

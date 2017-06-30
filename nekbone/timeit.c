@@ -1,22 +1,7 @@
 /****
  * This is a C implementation of timeit.f
  * **/
-
-//#include <civlc.cvh>
-#include <stdio.h>
-#include <stdlib.h>
-$input int NUMDIM;
-$input int NUMGP;
-$input int NUMEL;
-$assume(NUMDIM == 3);
-$assume(NUMGP == 10);
-$assume(NUMEL == 7040);
-
-//Global variables
-double dxm1[NUMGP][NUMGP], dxtm1[NUMGP][NUMGP];
-
-int ldim, nx1, ny1, nz1, nelt, n;
-
+#include "timeit.h"
 //Function declarations
 void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int find, int lind);
 void allocate_2d(double ***ar, int d1, int d2);
@@ -24,10 +9,17 @@ void allocate_3d(double ****ar, int d1, int d2, int d3);
 void free_2d(double **a, int d1, int d2);
 void free_3d(double ***a, int d1, int d2, int d3);
 
-$scope global = $here
+$scope global = $here;
+
+int ldim = NUMDIM; 
+int nx1 = NUMGP;
+int ny1 = NUMGP;
+int nz1 = NUMGP;
+int nelt = NUMEL;
+int n = nx1 * ny1 * nz1;
+
 
 int main(){
-    int ldim = NUMDIM, nx1 = NUMGP, ny1 = NUMGP, nz1 = NUMGP, nelt = NUMEL, n = nx1 * ny1 * nz1;
 
     int thread, numth, i, j, k;
     int fel, lel, find, lind;
@@ -35,10 +27,10 @@ int main(){
 
     double **w, **u;
     double ***gxyz;
-    double dxm1[NUMGP][NUMGP], dxtm1[NUMGP][NUMGP];
 
     allocate_2d(&w, nelt, n);
     allocate_2d(&u, nelt, n);
+    //printf("u array pointer%x, *u %x\n",(int)u,(int)(*u));
     allocate_3d(&gxyz, nelt, n, 2*ldim);
 
     printf("nx1 = %d\n", nx1);
@@ -46,19 +38,13 @@ int main(){
     for(i = 0; i < nelt; i++){
         for(j = 0; j < n; j++){
             w[i][j] = 1.0;
-            u[i][j] = 1.0 + 1.0/(1.0 * (i + j));
+            u[i][j] = 1.0 + 1.0/(1.0 * (i + j + 2));
             for(k = 0; k < 2*ldim; k++){
-                gxyz[i][j][k] = 1.0 + 1.0/(1.0 * j + 2.0 * i +3.0 * k);
+                gxyz[i][j][k] = 1.0 + 1.0/(1.0 * (j+1) + 2.0 * (i+1) +3.0 * (k+1));
             }
         }
     }
 
-    for(i = 0; i < nx1; i++){
-        for(j =0; j < nx1; j++){
-            dxm1[i][j] = 1.0 + 1.0/(1.0*(i + 2*j));
-            dxtm1[j][i] = 1.0 + 1.0/(1.0*(i+ 2*j));
-        }
-    }
     printf("Data initialized\n");
 
 #pragma omp parallel default(shared) private(thread, numth, find, lind, fel, lel)
@@ -71,16 +57,16 @@ int main(){
 #endif
 
     if(numth < nelt){
-        fel = (thread * nelt)/numth + 1;
-        lel = ((thread + 1 )*nelt)/numth;
+        fel = (thread * nelt)/numth;
+        lel = ((thread + 1 )*nelt)/numth - 1;
     }
     else{
         if(thread < nelt) {
-            fel = thread + 1;
+            fel = thread;
             lel = fel;
         }
         else{
-            fel = nelt + 1;
+            fel = nelt;
             lel = nelt;
         }
     }
@@ -89,6 +75,7 @@ int main(){
 
     lind = lel * n;
 
+
     if(thread == 1) {
         printf("thread =%d", numth);
         printf("Calling axi()");
@@ -96,7 +83,11 @@ int main(){
 
     axi(w, u, gxyz, n, fel, lel, find, lind);
 }
-
+    for(i = 0; i < nelt; i++){
+        for(j = 0; j < n; j++){
+            printf("w=%lf", w[i][j]);
+        }
+    }
     free_2d(w, nelt, n);
     free_2d(u, nelt, n);
     free_3d(gxyz, nelt, n, 2*ldim);
@@ -119,8 +110,7 @@ void free_2d(double **a, int d1, int d2){
         free(a[i]);
     }
     free(a);
-}
-
+} 
 void allocate_3d(double ****ar, int d1, int d2, int d3){
     double *** a =(double ***) $malloc(global, sizeof(double **) * d1);
     for(int i = 0; i< d1; i++){

@@ -1,0 +1,55 @@
+Session name....... timeit
+Directory.......... CIVLREP
+Date............... Fri Jun 30 11:31:23 CDT 2017
+Trace ID........... 0
+Violation number....... 0
+
+== Begin Violation Message == 
+Violation 0[length=3051, file=CIVLREP/timeit_0.trace]:
+CIVL execution violation in p0 (kind: DEREFERENCE, certainty: PROVEABLE)
+at local_flat_all16.c:20.48-52 "(u+e)":
+Illegal pointer dereference: Array index out of bounds in method arrayRead.
+array: [<<0>,0,ArrayElementRef(ArrayElementRef(TupleComponentRef(<1>,1),2),0)>,<<0>,0,ArrayElementRef(ArrayElementRef(TupleComponentRef(<1>,1),3),0)>]
+extent: 2
+index: 2
+
+Input:
+  NUMDIM=3
+  NUMGP=3
+  NUMEL=2
+  _omp_thread_max=X__omp_thread_max
+Context:
+  0<=(SIZEOF(71)-1)
+  0<=(SIZEOF_REAL-1)
+Call stacks:
+process 0:
+  local_flat_all at local_flat_all16.c:20.20-24 "tempr" called from
+  axi at axi_all16.c:22.16-29 "local_flat_all" called from
+  main at timeit.c:84.4-6 "axi"
+
+
+Input:
+  NUMDIM=3
+  NUMGP=3
+  NUMEL=2
+  _omp_thread_max=X__omp_thread_max
+Context:
+  0<=(SIZEOF(71)-1)
+  0<=(SIZEOF_REAL-1)
+Call stacks:
+process 0:
+  local_flat_all at local_flat_all16.c:20.20-24 "tempr" called from
+  axi at axi_all16.c:22.16-29 "local_flat_all" called from
+  main at timeit.c:84.4-6 "axi"
+
+== End Violation Message == 
+
+== Begin Configuration ==
+timeit.c
+axi_all16.c
+local_flat_all16.c
+== End Configuration ==
+
+== Begin Trace ==
+LENGTH = 3051
+== End Trace ==

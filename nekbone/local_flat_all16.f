@@ -46,7 +46,7 @@ c     Output: w         Input:u,n,D
                 temp = temp + us(i,k,l,e)*D(k,j)
                 temp = temp + ut(i,j,k,e)*D(k,l)
               enddo
-              w(i,j,l,e) = temp
+              w(i,j,l,e) = 2.0
             enddo
           enddo
         enddo
