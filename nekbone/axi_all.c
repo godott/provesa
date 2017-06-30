@@ -1,8 +1,8 @@
 #include "timeit.h"
 /*Matrix-vector product: w=A*u*/
 
-void local_flat_all(double **w, double **u, double *** gxyz, int n, double D[nx1][nx1]);
-void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int find, int lind){
+void local_flat_all(double **w, double **u, double *** gxyz, int ni, double D[nx1][nx1]);
+void axi(double **w, double **u, double ***gxyz, int ni, int fel, int lel, int find, int lind){
 
 
     int e, i, j, e16;

@@ -3,7 +3,7 @@
  * **/
 #include "timeit.h"
 //Function declarations
-void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int find, int lind);
+void axi(double **w, double **u, double ***gxyz, int ni, int fel, int lel, int find, int lind);
 void allocate_2d(double ***ar, int d1, int d2);
 void allocate_3d(double ****ar, int d1, int d2, int d3);
 void free_2d(double **a, int d1, int d2);

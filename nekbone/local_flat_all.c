@@ -1,21 +1,21 @@
 #include "timeit.h"
-void local_flat_all(double **w, double **u, double *** gxyz, int n, double D[nx1][nx1]){
+void local_flat_all(double **w, double **u, double *** gxyz, int ni, double D[nx1][nx1]){
 
     double temp, tempr, temps, tempt, wr, ws, wt;
 
 
-    double ur[n+1][n+1][n+1], us[n+1][n+1][n+1], ut[n+1][n+1][n+1];
+    double ur[ni+1][ni+1][ni+1], us[ni+1][ni+1][ni+1], ut[ni+1][ni+1][ni+1];
     int i, j, k, l;
 
 
-    for(l = 0; l <= n; l++){
-        for(j = 0; j <= n; j++){
-            for(i = 0; i <= n; i++){
+    for(l = 0; l <= ni; l++){
+        for(j = 0; j <= ni; j++){
+            for(i = 0; i <= ni; i++){
                 tempr = 0.0;
                 temps = 0.0;
                 tempt = 0.0;
 
-                for(k = 0; k <= n; k++){
+                for(k = 0; k <= ni; k++){
                     tempr = tempr + D[k][i] * (*u)[l*nx1*nx1+j*nx1+k];
                     temps = temps + D[k][j] * (*u)[l*nx1*nx1+k*nx1+i];
                     tempt = tempt + D[k][l] * (*u)[k*nx1*nx1+j*nx1+i];
@@ -33,9 +33,9 @@ void local_flat_all(double **w, double **u, double *** gxyz, int n, double D[nx1
         }
     }
 
-    for(l = 0; l <= n; l++){
-        for(j = 0; j <= n; j++){
-            for(i = 0; i <= n; i++){
+    for(l = 0; l <= ni; l++){
+        for(j = 0; j <= ni; j++){
+            for(i = 0; i <= ni; i++){
                     temp = 0.0;
                     for(k = 0; k <= n; k++){
 
