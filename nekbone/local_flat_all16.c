@@ -45,7 +45,7 @@ void local_flat_all(double **w, double **u, double *** gxyz, int n, double D[nx1
                         temp = temp + D[l][k] * ut[e][k][j][i];
                     }
 
-                (*(w+e))[nx1*nx1*l + nx1*i + j] = temp + 12.0;
+                (*(w+e))[nx1*nx1*l + nx1*i + j] = temp;
             }
 
         }

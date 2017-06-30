@@ -57,16 +57,16 @@ int main(){
 #endif
 
     if(numth < nelt){
-        fel = (thread * nelt)/numth;
-        lel = ((thread + 1 )*nelt)/numth - 1;
+        fel = (thread * nelt)/numth + 1;
+        lel = ((thread + 1 )*nelt)/numth;
     }
     else{
         if(thread < nelt) {
-            fel = thread;
+            fel = thread + 1;
             lel = fel;
         }
         else{
-            fel = nelt;
+            fel = nelt + 1;
             lel = nelt;
         }
     }

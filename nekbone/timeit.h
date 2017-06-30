@@ -12,11 +12,12 @@ $assume(NUMDIM == 3);
 $assume(NUMGP == 3);
 $assume(NUMEL == 16);
 
-extern ldim;
-extern nx1;
-extern ny1;
-extern nz1;
-extern nelt;
-extern n;
+$output double my_out[NUMEL][NUMGP*NUMGP*NUMGP];
+extern int ldim;
+extern int nx1;
+extern int ny1;
+extern int nz1;
+extern int nelt;
+extern int n;
 
 #endif
