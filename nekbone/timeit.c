@@ -15,6 +15,8 @@ void allocate_3d(double ****ar, int d1, int d2, int d3);
 void free_2d(double **a, int d1, int d2);
 void free_3d(double ***a, int d1, int d2, int d3);
 
+$scope global = $here
+
 int main(){
     int ldim = NUMDIM, nx1 = NUMGP, ny1 = NUMGP, nz1 = NUMGP, nelt = NUMEL, n = nx1 * ny1 * nz1;
 
@@ -96,9 +98,9 @@ int main(){
 }
 
 void allocate_2d(double ***ar, int d1, int d2){
-    double ** a = (double **) malloc(sizeof(double *) * d1);
+    double ** a = (double **) $malloc(global, sizeof(double *) * d1);
     for(int i = 0; i< d1; i++){
-        a[i] = (double *) malloc(sizeof(double) * d2);
+        a[i] = (double *) $malloc(global, sizeof(double) * d2);
     }
     *ar = a;
 }
@@ -111,11 +113,11 @@ void free_2d(double **a, int d1, int d2){
 }
 
 void allocate_3d(double ****ar, int d1, int d2, int d3){
-    double *** a =(double ***) malloc(sizeof(double **) * d1);
+    double *** a =(double ***) $malloc(global, sizeof(double **) * d1);
     for(int i = 0; i< d1; i++){
-        a[i] = (double **) malloc(sizeof(double *) * d2);
+        a[i] = (double **) $malloc(global, sizeof(double *) * d2);
         for(int j = 0; j< d2; j++){
-            a[i][j] = (double *) malloc(sizeof(double) * d3);
+            a[i][j] = (double *) $malloc(global, sizeof(double) * d3);
         }
     }
     *ar = a;
