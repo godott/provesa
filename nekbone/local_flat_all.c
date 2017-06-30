@@ -1,32 +1,28 @@
-#include "timeit.h"
 
 void local_flat_all(double **w, double **u, double *** gxyz, int n, double **D){
-
+    
     double temp, tempr, temps, tempt, wr, ws, wt;
 
     double ur[n+1][n+1], us[n+1][n+1], ut[n+1][n+1];
 
-    int i, j, k, l, m;
+    int i, j, k, l;
     
-    m = 0;
-
     for(l = 0; l <= n; l++){
-        for(j = 0; j <= n; l++){
-            for(i = 0; i <= n; l++){
-                m = m + 1;
+        for(j = 0; j <= n; j++){
+            for(i = 0; i <= n; i++){
                 tempr = 0.0;
                 temps = 0.0;
                 tempt = 0.0;
 
-                for(k = 0; k <= n; l++){
-                    tempr = tempr + D[k][i] * u[l][j][k];
-                    temps = temps + D[k][j] * u[l][k][i];
-                    tempt = tempt + D[k][l] * u[k][j][i];
+                for(k = 0; k <= n; k++){
+                    tempr = tempr + D[k][i] * (*u)[l*NUMGP*NUMGP+j*NUMGP+k];
+                    temps = temps + D[k][j] * (*u)[l*NUMGP*NUMGP+k*NUMGP+i];
+                    tempt = tempt + D[k][l] * (*u)[k*NUMGP*NUMGP+j*NUMGP+i];
                 }
 
-                wr = gxyz[m][1] * tempr + gxyz[m][2] * temps + gxyz[m][3] * tempt;
-                ws = gxyz[m][2] * tempr + gxyz[m][4] * temps + gxyz[m][5] * tempt;
-                wt = gxyz[m][3] * tempr + gxyz[m][5] * temps + gxyz[m][6] * tempt;
+                wr = (*gxyz)[i][0] * tempr + (*gxyz)[i][1] * temps + (*gxyz)[i][2] * tempt;
+                ws = (*gxyz)[i][1] * tempr + (*gxyz)[i][3] * temps + (*gxyz)[i][4] * tempt;
+                wt = (*gxyz)[i][2] * tempr + (*gxyz)[i][4] * temps + (*gxyz)[i][5] * tempt;
             }
         }
     }
@@ -42,7 +38,7 @@ void local_flat_all(double **w, double **u, double *** gxyz, int n, double **D){
                     }
 
             }
-            w[l][j][i] = temp;
+            (*w)[NUMGP*NUMGP*l + NUMGP*i + j] = temp;
         }
     }
 }
