@@ -135,11 +135,11 @@ void allocate_3d(double ****ar, int d1, int d2, int d3){
 void free_3d(double ***a, int d1, int d2, int d3){
     for(int i = 0; i< d1; i++){
         for(int j = 0; j < d2; j++){
-            free(a[i][j]);
+            $free(a[i][j]);
         }
     }
     for(int i = 0; i < d1; i++){
-            free(a[i]); 
+            $free(a[i]); 
     }
     free(a);
 }
