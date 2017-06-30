@@ -5,8 +5,17 @@
 //#include <civlc.cvh>
 #include <stdio.h>
 #include <stdlib.h>
-#include "timeit.h"
+$input int NUMDIM;
+$input int NUMGP;
+$input int NUMEL;
+$assume(NUMDIM == 3);
+$assume(NUMGP == 10);
+$assume(NUMEL == 7040);
+
 //Global variables
+double dxm1[NUMGP][NUMGP], dxtm1[NUMGP][NUMGP];
+
+int ldim, nx1, ny1, nz1, nelt, n;
 
 //Function declarations
 void axi(double **w, double **u, double ***gxyz, int n, int fel, int lel, int find, int lind);
