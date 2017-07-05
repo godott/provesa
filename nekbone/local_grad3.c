@@ -1,18 +1,31 @@
 #include "timeit.h"
 
-void mxm( void * a, int n1, void * b, int n2, void * c, int n3);
-void local_grad3(double ur[n], double us[n], double ut[n], double **u, int ni, double D[nx1][nx1], double Dt[nx1][nx1]){
+void mxm(double a[][], int n1, double b[][], int n2, double c[][], int n3);
+void local_grad3(double ur[nx1][nx1][nx1], double us[nx1][nx1][nx1], double ut[nx1][nx1][nx1], double **u, int ni, double D[nx1][nx1], double Dt[nx1][nx1]){
        int m1 = ni + 1;
        int m2 = m1 * m1;
-       int k;
+       int i, j, k;
     
-       mxm((void *)D, m1, (void *)(*u), m1, (void *)ur, m2);
+       double u_1[m1][m2], u_2[m1][m1][m1], u_3[m2][m1], ut_temp ;
 
-       for(k = 0; k <= ni; k++){
-            mxm((void *)(*(u+k*(ni + 1)*(ni + 1))), m1,(void*) Dt, m1, (void *)(us + k * (ni +1) *(ni + 1)), m1);
+       for(i = 0; i < m1; i++){
+           for(j = 0; j < m1; i++){
+               for(k = 0; k < m1; i++){
+                    u_1[i][j*m1+k] = u[i*m1*m1+j*m1+k];
+                    u_2[j][i][k] = u[i*m1*m1+j*m1+k];
+                    u_3[i*m1+j][k] = u[i*m1*m1+j*m1+k];
+               }
+           }
+
        }
 
-        mxm((void *)(*u), m2,(void *)Dt, m1,(void *)ut, m1);
+       mxm(D, m1, u_1, m1, ur, m2);
+
+       for(k = 0; k <= ni; k++){
+            mxm(u_2[k], m1,Dt, m1, us[k], m1);
+       }
+
+        mxm(u_3, m2,Dt, m1,ut, m1);
 
         return;
     

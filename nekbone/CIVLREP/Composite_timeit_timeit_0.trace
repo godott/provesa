@@ -1,11 +1,11 @@
 Session name....... Composite_timeit_timeit
 Directory.......... CIVLREP
-Date............... Fri Jun 30 15:14:48 CDT 2017
+Date............... Fri Jun 30 15:24:52 CDT 2017
 Trace ID........... 0
 Violation number....... 0
 
 == Begin Violation Message == 
-Violation 0[length=34413, file=CIVLREP/Composite_timeit_timeit_0.trace]:
+Violation 0[length=8588, file=CIVLREP/Composite_timeit_timeit_0.trace]:
 CIVL execution violation in p0 (kind: OUT_OF_BOUNDS, certainty: PROVEABLE)
 at local_flat_all.c:42.38-44 "D[i][k]":
 out of bounds array index:
@@ -24,8 +24,8 @@ Call stacks:
 process 0:
   local_flat_all at local_flat_all.c:42.24-27 "temp" called from
   axi at axi_all.c:24.16-29 "local_flat_all" called from
-  $impl_main at timeit.c:84.4-6 "axi" called from
-  $system_impl at compare combiner "inserted text" inserted by compare combiner.$impl_main() called from
+  $spec_main at timeit.c:84.4-6 "axi" called from
+  $system_spec at compare combiner "inserted text" inserted by compare combiner.$spec_main() called from
   main at timeit.c:22.0-2 "int"
 
 == End Violation Message == 
@@ -34,14 +34,14 @@ process 0:
 -showUnreached=false
 --spec
 timeit.c
-axi_all16.c
-local_flat_all16.c
---impl
-timeit.c
 axi_all.c
 local_flat_all.c
+--impl
+timeit.c
+axi_all16.c
+local_flat_all16.c
 == End Configuration ==
 
 == Begin Trace ==
-LENGTH = 34413
+LENGTH = 8588
 == End Trace ==
