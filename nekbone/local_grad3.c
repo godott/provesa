@@ -6,14 +6,15 @@ void local_grad3(double ur[nx1][nx1][nx1], double us[nx1][nx1][nx1], double ut[n
        int m2 = m1 * m1;
        int i, j, k;
     
-       double u_1[m1][m2], u_2[m1][m1][m1], u_3[m2][m1], ut_temp ;
+       double u_1[m1][m2], u_2[m1][m1][m1], u_3[m2][m1];
 
        for(i = 0; i < m1; i++){
            for(j = 0; j < m1; i++){
                for(k = 0; k < m1; i++){
-                    u_1[i][j*m1+k] = u[i*m1*m1+j*m1+k];
-                    u_2[j][i][k] = u[i*m1*m1+j*m1+k];
-                    u_3[i*m1+j][k] = u[i*m1*m1+j*m1+k];
+                    u_1[i*m1+j][k] = (*u)[i*m1*m1+j*m1+k];
+                    u_2[i][j][k] = (*u)[i*m1*m1+j*m1+k];
+                    u_3[i][j*m1+k] = (*u)[i*m1*m1+j*m1+k];
+
                }
            }
 
