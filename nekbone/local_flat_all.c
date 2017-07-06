@@ -37,7 +37,7 @@ void local_flat_all(double **w, double **u, double *** gxyz, int ni, double D[nx
         for(j = 0; j <= ni; j++){
             for(i = 0; i <= ni; i++){
                     temp = 0.0;
-                    for(k = 0; k <= n; k++){
+                    for(k = 0; k <= ni; k++){
 
                         temp = temp + D[i][k] * ur[l][j][i];
                         temp = temp + D[j][k] * us[l][k][i];

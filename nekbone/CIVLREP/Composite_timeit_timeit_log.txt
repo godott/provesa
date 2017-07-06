@@ -1,16 +1,17 @@
 Session name....... Composite_timeit_timeit
 Directory.......... CIVLREP
-Date............... Fri Jun 30 15:24:52 CDT 2017
+Date............... Thu Jul 06 14:05:34 CDT 2017
 numErrors.......... 1
 numDistinctErrors.. 1
 search truncated... true
 
-Violation 0[length=8588, file=CIVLREP/Composite_timeit_timeit_0.trace]:
-CIVL execution violation in p0 (kind: OUT_OF_BOUNDS, certainty: PROVEABLE)
-at local_flat_all.c:42.38-44 "D[i][k]":
-out of bounds array index:
-index = 3
-length = 3
+Violation 0[length=35924, file=CIVLREP/Composite_timeit_timeit_0.trace]:
+CIVL execution violation in p0 (kind: DEREFERENCE, certainty: PROVEABLE)
+at add2.c:8.29-32 "u[i]":
+Illegal pointer dereference: Array index out of bounds in method arrayRead.
+array: [[[912784/11025,3139909/198450,56207/3675],[1165/24,613979/40320,18547/1260],[2980/63,21206707/1428840,7117912/496125]],[[16749169/242550,1391167/99225,28965851/2074800],[331/8,102013/7560,152930887/11381760],[12706/315,11745158/893025,4108425649/313709760]],[[40160089/606375,227899639/16669800,2758754/202125],[965/24,133693627/10160640,7282703/554400],[12346/315,1099477859/85730400,39129403/3056130]]]
+extent: 3
+index: 3
 
 Input:
   NUMDIM=3
@@ -22,10 +23,29 @@ Context:
   0<=(SIZEOF_REAL-1)
 Call stacks:
 process 0:
-  local_flat_all at local_flat_all.c:42.24-27 "temp" called from
-  axi at axi_all.c:24.16-29 "local_flat_all" called from
-  $spec_main at timeit.c:84.4-6 "axi" called from
-  $system_spec at compare combiner "inserted text" inserted by compare combiner.$spec_main() called from
+  add2 at add2.c:8.16-25 "u[i][j][k]" called from
+  local_grad3_t at local_grad3_t.c:35.4-7 "add2" called from
+  axi at axi.c:56.9-21 "local_grad3_t" called from
+  $impl_main at timeit.c:84.4-6 "axi" called from
+  $system_impl at compare combiner "inserted text" inserted by compare combiner.$impl_main() called from
+  main at timeit.c:22.0-2 "int"
+
+
+Input:
+  NUMDIM=3
+  NUMGP=3
+  NUMEL=16
+  _omp_thread_max=X__omp_thread_max
+Context:
+  0<=(SIZEOF(71)-1)
+  0<=(SIZEOF_REAL-1)
+Call stacks:
+process 0:
+  add2 at add2.c:8.16-25 "u[i][j][k]" called from
+  local_grad3_t at local_grad3_t.c:35.4-7 "add2" called from
+  axi at axi.c:56.9-21 "local_grad3_t" called from
+  $impl_main at timeit.c:84.4-6 "axi" called from
+  $system_impl at compare combiner "inserted text" inserted by compare combiner.$impl_main() called from
   main at timeit.c:22.0-2 "int"
 
 

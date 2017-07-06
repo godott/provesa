@@ -34,7 +34,7 @@ void axi(double **w, double **u, double ***gxyz, int ni, int fel, int lel, int f
             }
         }
 
-         for(i = 1; i <= n; i++){
+         for(i = 0; i < n; i++){
                 wr = (*(gxyz+e))[i][0] * ur[i] + (*gxyz)[i][1] * us[i] + (*gxyz)[i][2] * ut[i];
                 ws = (*(gxyz+e))[i][1] * ur[i] + (*gxyz)[i][3] * us[i] + (*gxyz)[i][4] * ut[i];
                 wt = (*(gxyz+e))[i][2] * ur[i] + (*gxyz)[i][4] * us[i] + (*gxyz)[i][5] * ut[i];
