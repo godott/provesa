@@ -1,52 +1,37 @@
 Session name....... Composite_timeit_timeit
 Directory.......... CIVLREP
-Date............... Thu Jul 06 14:05:34 CDT 2017
+Date............... Fri Jul 07 16:10:11 CDT 2017
 Trace ID........... 0
 Violation number....... 0
 
 == Begin Violation Message == 
-Violation 0[length=35924, file=CIVLREP/Composite_timeit_timeit_0.trace]:
-CIVL execution violation in p0 (kind: DEREFERENCE, certainty: PROVEABLE)
-at add2.c:8.29-32 "u[i]":
-Illegal pointer dereference: Array index out of bounds in method arrayRead.
-array: [[[912784/11025,3139909/198450,56207/3675],[1165/24,613979/40320,18547/1260],[2980/63,21206707/1428840,7117912/496125]],[[16749169/242550,1391167/99225,28965851/2074800],[331/8,102013/7560,152930887/11381760],[12706/315,11745158/893025,4108425649/313709760]],[[40160089/606375,227899639/16669800,2758754/202125],[965/24,133693627/10160640,7282703/554400],[12346/315,1099477859/85730400,39129403/3056130]]]
-extent: 3
-index: 3
+Violation 0[length=2952, file=CIVLREP/Composite_timeit_timeit_0.trace]:
+CIVL execution violation in p0 (kind: ASSERTION_VIOLATION, certainty: PROVEABLE)
+at timeit.h:15.0-46 "$output double my_out[NUMEL][ ... ]" included from timeit.c:4:
+Context: 0 <= SIZEOF(<71>) - 1 && 0 <= SIZEOF_REAL - 1
+Assertion voilated: $equals(&(my_out_spec), &(my_out))
+Evaluation: 
+          &(my_out_spec)=&<d0>my_out_spec
+          &(my_out)=&<d0>my_out
+Result: 
+          <d0>my_out_spec=
+| [0]={[0]=(313562/5265), [1]=(4812152021/86486400), [2]=(20365539223/382536000), [3]=(4207918333/84268800), [4]=(10012085959441/195545750400), [5]=(4121945444693/85667662080), [6]=(1062121380989/22676734080), [7]=(30392626561/687173760)}
+| [1]={[0]=(5485764539/101159520), [1]=(28662730559/558835200), [2]=(91629098963/1837836000), [3]=(266339173651/5636030400), [4]=(3496372426319/72153244800), [5]=(40307763971/876395520), [6]=(238266148291/5277888000), [7]=(1394242011719/32463535104)}
+          <d0>my_out=
+| [0]={[0]=(2854937/98280), [1]=(1243937/44928), [2]=(35303803/1386000), [3]=(969269809/39916800), [4]=(31078842463/1286485200), [5]=(1505016907/65345280), [6]=(6236803/280098), [7]=(30206773/1422720)}
+| [1]={[0]=(20515619/776160), [1]=(563292767/22353408), [2]=(11071361629/459459000), [3]=(1608531853/70012800), [4]=(1732120489/74692800), [5]=(880842113/39836160), [6]=(34918763/1606500), [7]=(63931009/3084480)}
 
 Input:
   NUMDIM=3
-  NUMGP=3
-  NUMEL=16
+  NUMGP=2
+  NUMEL=2
   _omp_thread_max=X__omp_thread_max
 Context:
   0<=(SIZEOF(71)-1)
   0<=(SIZEOF_REAL-1)
 Call stacks:
 process 0:
-  add2 at add2.c:8.16-25 "u[i][j][k]" called from
-  local_grad3_t at local_grad3_t.c:35.4-7 "add2" called from
-  axi at axi.c:56.9-21 "local_grad3_t" called from
-  $impl_main at timeit.c:84.4-6 "axi" called from
-  $system_impl at compare combiner "inserted text" inserted by compare combiner.$impl_main() called from
-  main at timeit.c:22.0-2 "int"
-
-
-Input:
-  NUMDIM=3
-  NUMGP=3
-  NUMEL=16
-  _omp_thread_max=X__omp_thread_max
-Context:
-  0<=(SIZEOF(71)-1)
-  0<=(SIZEOF_REAL-1)
-Call stacks:
-process 0:
-  add2 at add2.c:8.16-25 "u[i][j][k]" called from
-  local_grad3_t at local_grad3_t.c:35.4-7 "add2" called from
-  axi at axi.c:56.9-21 "local_grad3_t" called from
-  $impl_main at timeit.c:84.4-6 "axi" called from
-  $system_impl at compare combiner "inserted text" inserted by compare combiner.$impl_main() called from
-  main at timeit.c:22.0-2 "int"
+  main at timeit.h:15.0-6 "$output" included from timeit.c:4
 
 == End Violation Message == 
 
@@ -66,5 +51,5 @@ add2.c
 == End Configuration ==
 
 == Begin Trace ==
-LENGTH = 35924
+LENGTH = 2952
 == End Trace ==

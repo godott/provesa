@@ -9,8 +9,8 @@ $input int NUMDIM;
 $input int NUMGP;
 $input int NUMEL;
 $assume(NUMDIM == 3);
-$assume(NUMGP == 3);
-$assume(NUMEL == 16);
+$assume(NUMGP == 2);
+$assume(NUMEL == 2);
 
 $output double my_out[NUMEL][NUMGP*NUMGP*NUMGP];
 extern int ldim;

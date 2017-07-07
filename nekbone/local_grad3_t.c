@@ -29,6 +29,7 @@ void local_grad3_t(double **u, double ur[nx1][nx1][nx1], double us[nx1][nx1][nx1
        for(j = 0; j < m1; j++){
            for(k = 0; k < m1; k++){
                u_temp[i][j][k] = u_1[i*m1+j][k];
+               (*u)[i*m1*m1+j*m1+k] = u_1[i*m1+j][k];
            }
        }
    }
@@ -48,7 +49,7 @@ void local_grad3_t(double **u, double ur[nx1][nx1][nx1], double us[nx1][nx1][nx1
    for(i = 0; i < m1; i++){
        for(j = 0; j < m1; j++){
            for(k = 0; k < m1; k++){
-               (*u)[i*m1*m1+j*m1+k] = u_2[i][j][k];
+               //(*u)[i*m1*m1+j*m1+k] = u_2[i][j][k];
            }
        }
    }
